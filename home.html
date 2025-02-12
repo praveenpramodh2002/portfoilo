@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praveen- Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Portfolio</div>
+            <button class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="profile-circle">
+                <div class="glow-effect"></div>
+                <img src="images/hero.jpeg" alt="Profile" class="profile-img">
+            </div>
+            <div class="hero-text">
+                <h1 class="hero-title">
+Hi, I'm Praveen, a passionate Web Designer crafting stunning and user-friendly digital experiences.
+
+Let me know if you want any tweaks! 🚀
+                </h1>
+                <p class="hero-subtitle">UX/UI Designer</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#contact" class="cta-button">Hire Me</a>
+                    <a href="#projects" class="cta-button secondary">Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>I'm a passionate UI/UX designer with 5 years of experience in creating beautiful and functional web applications. I specialize in user-centered design and love turning complex problems into simple, beautiful solutions.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <h3>5+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100+</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Happy Clients</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="images/h5.png" alt="Project 1" class="project-img">
+                <div class="project-content">
+                    <h3 class="project-title">E-commerce Platform</h3>
+                    <p>A full-featured online shopping platform built with React and Node.js</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="images/p2.jpg" alt="Project 2" class="project-img">
+                <div class="project-content">
+                    <h3 class="project-title">Task Management App</h3>
+                    <p>A productivity app built with Vue.js and Firebase</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="images/h4.jpeg" alt="Project 3" class="project-img">
+                <div class="project-content">
+                    <h3 class="project-title">Portfolio Website</h3>
+                    <p>A responsive portfolio website built with HTML, CSS, and JavaScript</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <i class="fab fa-html5 skill-icon"></i>
+                <p>HTML5</p>
+            </div>
+            <div class="skill-item">
+                <i class="fab fa-css3-alt skill-icon"></i>
+                <p>CSS3</p>
+            </div>
+            <div class="skill-item">
+                <i class="fab fa-js skill-icon"></i>
+                <p>JavaScript</p>
+            </div>
+            <div class="skill-item">
+                <i class="fab fa-react skill-icon"></i>
+                <p>React</p>
+            </div>
+            <div class="skill-item">
+                <i class="fab fa-node skill-icon"></i>
+                <p>Node.js</p>
+            </div>
+            <div class="skill-item">
+                <i class="fab fa-git-alt skill-icon"></i>
+                <p>Git</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Contact Me</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <textarea class="form-input" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="cta-button">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Praveen. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <script src="home.js"></script>
+</body>
+</html>
