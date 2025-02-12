@@ -67,7 +67,7 @@ body {
 }
 
 .hero {
-    min-height: 100vh;
+    min-height: 110vh;
     background: #0a192f;
     display: flex;
     align-items: center;
@@ -89,7 +89,7 @@ body {
     height: 300px;
     margin: 0 auto 2rem;
     position: relative;
-    border-radius: 50%;
+    border-radius: 100%;
 }
 
 .profile-img {
@@ -108,7 +108,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 250px;
-    height: 250px;
+    height: 200px;
     background: #00ffcc;
     border-radius: 50%;
     filter: blur(30px);
@@ -130,7 +130,7 @@ body {
 .hero-title {
     font-size: 1.5rem;
     color: #ffffff;
-    margin-bottom: 1rem;s
+    margin-bottom: 2rem;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeUp 0.5s ease forwards 0.5s;
