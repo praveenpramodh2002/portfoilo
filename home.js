@@ -6,6 +6,22 @@ const sections = document.querySelectorAll('section');
 const form = document.querySelector('.contact-form');
 const glowEffect = document.querySelector('.glow-effect');
 
+// Initialize AOS (Animate On Scroll)
+AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+    mirror: false
+});
+
+// Scroll Progress Bar
+const scrollProgress = document.querySelector('.scroll-progress');
+window.addEventListener('scroll', () => {
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    scrollProgress.style.transform = `scaleX(${scrolled / 100})`;
+});
+
 // Mobile Menu Toggle
 menuBtn.addEventListener('click', () => {
     navLinks.classList.toggle('active');
@@ -18,21 +34,19 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Smooth Scrolling
+// Smooth Scroll for Navigation Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        navLinks.classList.remove('active');
-
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        const navHeight = navbar.offsetHeight;
-        const targetPosition = targetSection.offsetTop - navHeight;
-
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            // Close mobile menu if open
+            navLinks.classList.remove('active');
+        }
     });
 });
 
@@ -109,22 +123,48 @@ function highlightNavigation() {
 // Navbar Background Change on Scroll
 function updateNavbar() {
     if (window.scrollY > 50) {
-        navbar.classList.add('navbar-scrolled');
+        navbar.classList.add('scrolled');
     } else {
-        navbar.classList.remove('navbar-scrolled');
+        navbar.classList.remove('scrolled');
     }
 }
 
 // Project Card Hover Effect
 const projectCards = document.querySelectorAll('.project-card');
 projectCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'scale(1.05) translateY(-10px) rotateX(5deg)';
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'scale(1) translateY(0) rotateX(0)';
+    });
+});
 
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
+// Skill Item Hover Effect
+const skillItems = document.querySelectorAll('.skill-item');
+skillItems.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        item.style.transform = 'translateY(-10px) rotateX(5deg)';
+    });
+    item.addEventListener('mouseleave', () => {
+        item.style.transform = 'translateY(0) rotateX(0)';
+    });
+});
+
+// Dark Mode Toggle
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+if (prefersDarkScheme.matches) {
+    document.body.classList.add('dark-mode');
+}
+
+// Service Card Hover Effect
+const serviceCards = document.querySelectorAll('.service-card');
+serviceCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'scale(1.05) translateY(-10px)';
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'scale(1) translateY(0)';
     });
 });
 
@@ -224,4 +264,9 @@ window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
         navLinks.classList.remove('active');
     }
+});
+
+// Add loading animation
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
 });

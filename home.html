@@ -6,8 +6,12 @@
     <title>Praveen- Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-content">
@@ -16,185 +20,181 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
-                <a href="#contact">Contact</a>
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
         </div>
     </nav>
 
- <!-- Hero Section -->
-<section id="home" class="hero">
-    <div class="hero-content">
-        <div class="profile-circle">
-            <div class="glow-effect"></div>
-            <img src="images/hero2.jpeg" alt="Profile" class="profile-img">
-        </div>
-
-        <div class="hero-text">
-            <h1 class="hero-title1">
-                <span class="highlight">Hi, I'm Praveen</span>
-            </h1>
-            
-            <p class="hero-subtitle">UX/UI Designer</p>
-            
-            <!-- Social Icons -->
-            <div class="social-icons">
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/praveenpramodh2002" class="social-icon"><i class="fab fa-github"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <div class="profile-circle">
+                <div class="glow-effect"></div>
+                <img src="images/hero2.jpeg" alt="Profile" class="profile-img">
             </div>
 
-            <!-- Call to Action Buttons -->
-            <div class="cta-buttons">
-                <a href="#contact" class="cta-button">Hire Me</a>
-                <a href="#projects" class="cta-button secondary">Portfolio</a>
+            <div class="hero-text">
+                <h1 class="hero-title1">
+                    <span class="highlight">Hi, I'm Praveen</span>
+                </h1>
+                
+                <p class="hero-subtitle">UX/UI Designer</p>
+                
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <a href="#" class="social-icon" data-aos="fade-up" data-aos-delay="100"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon" data-aos="fade-up" data-aos-delay="200"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/praveenpramodh2002" class="social-icon" data-aos="fade-up" data-aos-delay="300"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon" data-aos="fade-up" data-aos-delay="400"><i class="fab fa-dribbble"></i></a>
+                </div>
+
+                <!-- Call to Action Buttons -->
+                <div class="cta-buttons">
+                    <a href="#contact" class="cta-button" data-aos="fade-up" data-aos-delay="500">Hire Me</a>
+                    <a href="#projects" class="cta-button secondary" data-aos="fade-up" data-aos-delay="600">Portfolio</a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-
-   <!-- About Section -->
-<section id="about" class="about">
-    <h2 class="section-title">About Me</h2>
-    <div class="about-content">
-        <div class="about-text">
-            <p>I'm a passionate UI/UX designer with 5 years of experience in creating beautiful and functional web applications. I specialize in user-centered design and love turning complex problems into simple, beautiful solutions.</p>
-        </div>
-        <div class="about-stats">
-            <div class="stat-item">
-                <h3>5+</h3>
-                <p>Years Experience</p>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title" data-aos="fade-up">About Me</h2>
+        <div class="about-content" data-aos="fade-up" data-aos-delay="200">
+            <div class="about-text">
+                <p>I'm a passionate UI/UX designer with 5 years of experience in creating beautiful and functional web applications. I specialize in user-centered design and love turning complex problems into simple, beautiful solutions.</p>
             </div>
-            <div class="stat-item">
-                <h3>100+</h3>
-                <p>Projects Completed</p>
-            </div>
-            <div class="stat-item">
-                <h3>50+</h3>
-                <p>Happy Clients</p>
+            <div class="about-stats">
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                    <h3>5+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+                    <h3>100+</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="500">
+                    <h3>50+</h3>
+                    <p>Happy Clients</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
- <!-- Projects Section -->
-<section id="projects" class="projects">
-    <h2 class="section-title">My Projects</h2>
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <h2 class="section-title" data-aos="fade-up">My Projects</h2>
+        <div class="projects-slider">
+            <div class="projects-container">
+                <!-- Project 1 -->
+                <a href="https://github.com/yourusername/ecommerce-platform" class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="images/Trilok OTT Platform Figma Template.jpeg" alt="E-commerce Platform" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">E-commerce Platform</h3>
+                        <p>A full-featured online shopping platform built with React and Node.js.</p>
+                    </div>
+                </a>
 
-    <div class="projects-slider">
-        <div class="projects-container">
-            
-            <!-- Project 1 -->
-            <a href="https://github.com/yourusername/ecommerce-platform" class="project-card">
-                <img src="images/Trilok OTT Platform Figma Template.jpeg" alt="E-commerce Platform" class="project-img">
-                <div class="project-content">
-                    <h3 class="project-title">E-commerce Platform</h3>
-                    <p>A full-featured online shopping platform built with React and Node.js.</p>
-                </div>
-            </a>
+                <!-- Project 2 -->
+                <a href="https://github.com/yourusername/task-management-app" class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <img src="images/p2.jpg" alt="Task Management App" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">Task Management App</h3>
+                        <p>A productivity app built with Vue.js and Firebase.</p>
+                    </div>
+                </a>
 
-            <!-- Project 2 -->
-            <a href="https://github.com/yourusername/task-management-app" class="project-card">
-                <img src="images/p2.jpg" alt="Task Management App" class="project-img">
-                <div class="project-content">
-                    <h3 class="project-title">Task Management App</h3>
-                    <p>A productivity app built with Vue.js and Firebase.</p>
-                </div>
-            </a>
+                <!-- Project 3 -->
+                <a href="https://github.com/yourusername/portfolio-website" class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <img src="images/Movie Ux Ui.jpeg" alt="Portfolio Website" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">Portfolio Website</h3>
+                        <p>A responsive portfolio website built with HTML, CSS, and JavaScript.</p>
+                    </div>
+                </a>
 
-            <!-- Project 3 -->
-            <a href="https://github.com/yourusername/portfolio-website" class="project-card">
-                <img src="images/Movie Ux Ui.jpeg" alt="Portfolio Website" class="project-img">
-                <div class="project-content">
-                    <h3 class="project-title">Portfolio Website</h3>
-                    <p>A responsive portfolio website built with HTML, CSS, and JavaScript.</p>
-                </div>
-            </a>
+                <!-- Project 4 -->
+                <a href="https://github.com/yourusername/mobile-app" class="project-card" data-aos="fade-up" data-aos-delay="500">
+                    <img src="images/WebDesign.jpeg" alt="Mobile App" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">Mobile App</h3>
+                        <p>A React Native app with authentication and push notifications.</p>
+                    </div>
+                </a>
 
-            <!-- Project 4 -->
-            <a href="https://github.com/yourusername/mobile-app" class="project-card">
-                <img src="images/WebDesign.jpeg" alt="Mobile App" class="project-img">
-                <div class="project-content">
-                    <h3 class="project-title">Mobile App</h3>
-                    <p>A React Native app with authentication and push notifications.</p>
-                </div>
-            </a>
-
-            <!-- Project 5 -->
-            <a href="https://github.com/yourusername/dashboard" class="project-card">
-                <img src="images/Ecommerce Web Design for Luxury Perfume _ Landing Page.jpeg" alt="Admin Dashboard" class="project-img">
-                <div class="project-content">
-                    <h3 class="project-title">Admin Dashboard</h3>
-                    <p>A feature-rich admin dashboard with analytics & charts.</p>
-                </div>
-            </a>
-
+                <!-- Project 5 -->
+                <a href="https://github.com/yourusername/dashboard" class="project-card" data-aos="fade-up" data-aos-delay="600">
+                    <img src="images/Ecommerce Web Design for Luxury Perfume _ Landing Page.jpeg" alt="Admin Dashboard" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">Admin Dashboard</h3>
+                        <p>A feature-rich admin dashboard with analytics & charts.</p>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
-</section>
-
+    </section>
 
     <!-- Skills Section -->
     <section id="skills" class="skills">
-        <h2 class="section-title1">My Skills</h2>
+        <h2 class="section-title1" data-aos="fade-up">My Skills</h2>
         <div class="skills-grid">
-            <div class="skill-item">
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
                 <i class="fab fa-html5 skill-icon"></i>
                 <p>HTML5</p>
             </div>
-            <div class="skill-item">
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
                 <i class="fab fa-css3-alt skill-icon"></i>
                 <p>CSS3</p>
             </div>
-            <div class="skill-item">
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="400">
                 <i class="fab fa-js skill-icon"></i>
                 <p>JavaScript</p>
             </div>
-            <div class="skill-item">
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="500">
                 <i class="fab fa-react skill-icon"></i>
                 <p>React</p>
             </div>
-            <div class="skill-item">
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="600">
                 <i class="fab fa-node skill-icon"></i>
                 <p>Node.js</p>
             </div>
-            <div class="skill-item">
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="700">
                 <i class="fab fa-git-alt skill-icon"></i>
                 <p>Git</p>
             </div>
         </div>
     </section>
+
+    <!-- Services Section -->
     <section id="services" class="services">
-        <h2 class="section-title">My Services</h2>
+        <h2 class="section-title" data-aos="fade-up">My Services</h2>
         <div class="service-container">
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                 <i class="fas fa-code service-icon"></i>
                 <h3>Web Development</h3>
                 <p>Creating modern, responsive websites with the latest technologies.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                 <i class="fas fa-paint-brush service-icon"></i>
                 <h3>UI/UX Design</h3>
                 <p>Designing visually appealing and user-friendly interfaces.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                 <i class="fas fa-mobile-alt service-icon"></i>
                 <h3>Mobile App Design</h3>
                 <p>Crafting seamless mobile experiences for Android & iOS.</p>
             </div>
         </div>
     </section>
-    
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
-        <h2 class="section-title">Contact Me</h2>
-        <form class="contact-form">
+        <h2 class="section-title" data-aos="fade-up">Contact Me</h2>
+        <form class="contact-form" data-aos="fade-up" data-aos-delay="200">
             <div class="form-group">
                 <input type="text" class="form-input" placeholder="Your Name" required>
             </div>
@@ -207,47 +207,48 @@
             <button type="submit" class="cta-button">Send Message</button>
         </form>
     </section>
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <!-- Left Section - Contact Info -->
-        <div class="footer-left">
-            <h2>Contact Us</h2>
-            <p><i class="fas fa-map-marker-alt"></i> 240/A, Walasmulla</p>
-            <p><i class="fas fa-phone-alt"></i> (+94) 71 453 1805</p>
-            <p><i class="fas fa-envelope"></i> <a href="mailto:praveenpramodh2002@gmail.com">praveenpramodh2002@gmail.com</a></p>
-        </div>
 
-        <!-- Center Section - Quick Links -->
-        <div class="footer-center">
-            <h2>Quick Links</h2>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#projects">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Left Section - Contact Info -->
+            <div class="footer-left" data-aos="fade-up" data-aos-delay="200">
+                <h2>Contact Us</h2>
+                <p><i class="fas fa-map-marker-alt"></i> 240/A, Walasmulla</p>
+                <p><i class="fas fa-phone-alt"></i> (+94) 71 453 1805</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:praveenpramodh2002@gmail.com">praveenpramodh2002@gmail.com</a></p>
+            </div>
 
-        <!-- Right Section - Social Media -->
-        <div class="footer-right">
-            <h2>Follow Us</h2>
-            <div class="social-icons">
-                <a href="https://github.com/praveenpramodh2002"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+            <!-- Center Section - Quick Links -->
+            <div class="footer-center" data-aos="fade-up" data-aos-delay="300">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Section - Social Media -->
+            <div class="footer-right" data-aos="fade-up" data-aos-delay="400">
+                <h2>Follow Us</h2>
+                <div class="social-icons">
+                    <a href="https://github.com/praveenpramodh2002"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Bottom Bar -->
-    <div class="footer-bottom">
-        <p>&copy; 2025 Praveen Pramodh. All rights reserved.</p>
-    </div>
-</footer>
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 Praveen Pramodh. All rights reserved.</p>
+        </div>
+    </footer>
 
-
-
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="home.js"></script>
 </body>
 </html>
