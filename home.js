@@ -102,6 +102,42 @@ function setupTypewriter(text) {
     setTimeout(type, 1000);
 }
 
+// Hero Subtitle Animation
+const subtitles = document.querySelectorAll('.hero-subtitle');
+let currentSubtitle = 0;
+
+function showNextSubtitle() {
+    // Hide current subtitle
+    subtitles[currentSubtitle].style.opacity = '0';
+    subtitles[currentSubtitle].style.transform = 'translateY(20px)';
+    
+    // Move to next subtitle
+    currentSubtitle = (currentSubtitle + 1) % subtitles.length;
+    
+    // Show next subtitle
+    subtitles[currentSubtitle].style.opacity = '1';
+    subtitles[currentSubtitle].style.transform = 'translateY(0)';
+    
+    // Schedule next change
+    setTimeout(showNextSubtitle, 3000);
+}
+
+// Start the subtitle rotation after all typing animations complete
+setTimeout(() => {
+    showNextSubtitle();
+}, 10500); // 3.5s * 3 subtitles
+
+// Add hover effect to subtitles
+subtitles.forEach(subtitle => {
+    subtitle.addEventListener('mouseenter', () => {
+        subtitle.style.transform = 'translateY(-5px) scale(1.05)';
+    });
+    
+    subtitle.addEventListener('mouseleave', () => {
+        subtitle.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
 // Active Navigation Highlighting
 function highlightNavigation() {
     const scrollPosition = window.scrollY + navbar.offsetHeight + 100;
