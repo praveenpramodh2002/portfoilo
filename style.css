@@ -1014,6 +1014,12 @@ body {
     scroll-snap-type: x mandatory;
     padding: 2rem 0;
     margin: 0 -2rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.projects-slider::-webkit-scrollbar {
+    display: none;
 }
 
 .projects-container {
@@ -1347,6 +1353,7 @@ textarea.form-input {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     .footer-container {
         grid-template-columns: 1fr;
@@ -1364,6 +1371,18 @@ textarea.form-input {
 
     .footer-right .social-icons {
         justify-content: center;
+    }
+
+    .projects-container {
+        padding: 0 1rem;
+    }
+
+    .project-card {
+        flex: 0 0 280px;
+    }
+
+    .contact-form {
+        padding: 1.5rem;
     }
 }
 
