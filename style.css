@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 html {
@@ -236,33 +236,6 @@ body {
     }
 
     .menu-btn.active i {
-        color: #00ffcc;
-    }
-}
-
-/* Dark Mode Support for Navigation */
-@media (prefers-color-scheme: dark) {
-    .navbar {
-        background: rgba(10, 25, 47, 0.95);
-    }
-
-    .nav-link {
-        color: #e6f1ff;
-    }
-
-    .nav-link:hover {
-        color: #00ffcc;
-    }
-
-    .nav-link.active {
-        color: #00ffcc;
-    }
-
-    .menu-btn {
-        color: #e6f1ff;
-    }
-
-    .menu-btn:hover {
         color: #00ffcc;
     }
 }
