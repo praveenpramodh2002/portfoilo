@@ -305,4 +305,36 @@ window.addEventListener('resize', () => {
 // Add loading animation
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
+});document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Update active state
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            const filterValue = button.getAttribute('data-filter');
+            
+            // Filter projects with animation
+            projectCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                
+                if (filterValue === 'all' || cardCategory === filterValue) {
+                    card.classList.remove('hide');
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 10);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.classList.add('hide');
+                    }, 300); // Match this with CSS transition duration
+                }
+            });
+        });
+    });
 });
