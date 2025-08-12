@@ -6,20 +6,14 @@ const sections = document.querySelectorAll('section');
 const form = document.querySelector('.contact-form');
 const glowEffect = document.querySelector('.glow-effect');
 
-// Initialize AOS (Animate On Scroll)
-AOS.init({
-    duration: 800,
-    easing: 'ease-in-out',
-    once: true,
-    mirror: false
-});
-
 // Scroll Progress Bar
 const scrollProgress = document.querySelector('.scroll-progress');
 window.addEventListener('scroll', () => {
     const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (window.scrollY / windowHeight) * 100;
-    scrollProgress.style.transform = `scaleX(${scrolled / 100})`;
+    if (scrollProgress) {
+        scrollProgress.style.transform = `scaleX(${scrolled / 100})`;
+    }
 });
 
 // Mobile Menu Toggle
@@ -283,9 +277,62 @@ window.addEventListener('scroll', () => {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    setupTypewriter();
+    // Initialize navbar and navigation
     updateNavbar();
     highlightNavigation();
+    
+    // Project Filtering System
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    console.log('Filter buttons found:', filterButtons.length);
+    console.log('Project cards found:', projectCards.length);
+    
+    // Initialize all projects as visible
+    projectCards.forEach(card => {
+        card.style.display = 'block';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        console.log('Card category:', card.getAttribute('data-category'));
+    });
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log('Filter button clicked:', this.getAttribute('data-filter'));
+            
+            // Update active state
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filterValue = this.getAttribute('data-filter');
+            let visibleCount = 0;
+            
+            // Filter projects with smooth animation
+            projectCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                console.log('Checking card:', cardCategory, 'against filter:', filterValue);
+                
+                if (filterValue === 'all' || cardCategory === filterValue) {
+                    // Show card
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                    visibleCount++;
+                } else {
+                    // Hide card
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+            
+            console.log('Visible projects:', visibleCount);
+        });
+    });
 });
 
 // Prevent form submission on Enter key
@@ -305,36 +352,51 @@ window.addEventListener('resize', () => {
 // Add loading animation
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
-});document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
+    const projectsGrid = document.querySelector('.projects-grid');
     
+    // Initialize - show all projects
+    projectCards.forEach(card => {
+        card.style.display = 'block';
+    });
+
     filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', function() {
             // Update active state
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+            this.classList.add('active');
             
-            const filterValue = button.getAttribute('data-filter');
+            const filterValue = this.getAttribute('data-filter');
             
             // Filter projects with animation
             projectCards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
                 
                 if (filterValue === 'all' || cardCategory === filterValue) {
-                    card.classList.remove('hide');
+                    // Show matching projects
+                    card.style.display = 'block';
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
                     }, 10);
                 } else {
+                    // Hide non-matching projects
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
                     setTimeout(() => {
-                        card.classList.add('hide');
-                    }, 300); // Match this with CSS transition duration
+                        card.style.display = 'none';
+                    }, 300);
                 }
             });
+
+            // Reflow the grid layout
+            setTimeout(() => {
+                projectsGrid.style.display = 'none';
+                projectsGrid.offsetHeight; // Trigger reflow
+                projectsGrid.style.display = 'grid';
+            }, 350);
         });
     });
-});
+});});
