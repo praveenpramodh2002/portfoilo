@@ -26,53 +26,110 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="hero-circle hero-circle-1"></div>
-            <div class="hero-circle hero-circle-2"></div>
-            <div class="hero-circle hero-circle-3"></div>
-        </div>
-        
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-badge">
-                    <span>Welcome to my Portfolio</span>
-                </div>
-                <h1 class="hero-title">
-                    <span class="hero-greeting">Hi, I'm</span>
-                    <span class="hero-name">Praveen Pramodh</span>
-                </h1>
-                <div class="hero-subtitle-wrapper">
-                    <h2 class="hero-subtitle">Frontend & Full-Stack Developer</h2>
-                    <p class="hero-description">Passionate Frontend & Full Stack Developer dedicated to building scalable, performant web applications. Skilled in React, Node.js, and modern technologies to create seamless user experiences and robust backend systems.</p>
-                </div>
-                
-                <div class="social-icons">
-                    <a href="#" class="social-icon" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/praveen-pramodh-1a7021289" class="social-icon" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://github.com/praveenpramodh2002" class="social-icon" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
+   <!-- Hero Section -->
+<section id="home" class="hero">
+    <!-- Background Video -->
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="images/video/bg1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-               <div class="cta-container">
-    <a href="images/Pdf/Praveen_CV_Resume.pdf" class="cta-button" download>
-        <i class="fas fa-download"></i>
-        <div class="download-text">
-            <span>Download CV</span>
-            <small>PDF Format</small>
-        </div>
-    </a>
-</div>
+    <!-- Optional gradient overlay -->
+    <div class="hero-overlay"></div>
 
+    <div class="hero-content">
+        <div class="hero-text">
+            <div class="hero-badge">
+                <span>Welcome to my Portfolio</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="hero-greeting">Hi, I'm</span>
+                <span class="hero-name">Praveen Pramodh</span>
+            </h1>
+            <div class="hero-subtitle-wrapper">
+                <h2 class="hero-subtitle">Frontend & Full-Stack Developer</h2>
+                <p class="hero-description">Passionate Frontend & Full Stack Developer dedicated to building scalable, performant web applications. Skilled in React, Node.js, and modern technologies to create seamless user experiences and robust backend systems.</p>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/praveen-pramodh-1a7021289" class="social-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/praveenpramodh2002" class="social-icon" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
             </div>
 
-            <div class="hero-image">
+            <div class="cta-container">
+                <a href="images/Pdf/Praveen_CV_Resume.pdf" class="cta-button" download>
+                    <i class="fas fa-download"></i>
+                    <div class="download-text">
+                        <span>Download CV</span>
+                        <small>PDF Format</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <span>Scroll to explore</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+
+   <!-- About Section -->
+<section id="about" class="about">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">About <span class="highlight">Me</span></h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="about-content">
+            <!-- Left Side: Text + Features -->
+            <div class="about-text">
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Who I Am</h3>
+                    <p>I am a dedicated Frontend and Full Stack Developer skilled in building high-performance, scalable web applications using React, Node.js, and Express. I focus on writing clean, modular code and follow best practices like component-driven architecture and RESTful API design. Experienced in Agile environments, I enjoy collaborating with teams, mentoring others, and contributing to open source projects. I stay updated on the latest web and cloud technologies to create seamless, accessible, and visually engaging user experiences. My goal is to deliver robust software solutions that provide real business value and exceptional user satisfaction.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-palette"></i>
+                        <h4>Creative Design</h4>
+                        <p>Creating unique and engaging user interfaces</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Responsive Design</h4>
+                        <p>Building websites that work on all devices</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-code"></i>
+                        <h4>Clean Code</h4>
+                        <p>Writing efficient and maintainable code</p>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Let's Talk</a>
+                    <a href="images/Pdf/Praveen_CV_Resume.pdf" class="btn btn-secondary" download>
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Side: Profile Image with Circle Design -->
+            <div class="about-image">
                 <div class="profile-container">
                     <div class="profile-rings">
                         <div class="profile-ring ring-1"></div>
@@ -82,65 +139,9 @@
                     <div class="profile-image">
                         <img src="images/my2.jpg" alt="Praveen Pramodh">
                     </div>
-                    <div class="status-badge">
-                        <div class="status-dot"></div>
-                        <span>Available for Work</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="scroll-indicator">
-            <span>Scroll to explore</span>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">About <span class="highlight">Me</span></h2>
-                <div class="section-underline"></div>
-            </div>
-
-            <div class="about-content">
-                <div class="about-text">
-                    <div class="about-card">
-                        <div class="card-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Who I Am</h3>
-                        <p>I am a dedicated Frontend and Full Stack Developer skilled in building high-performance, scalable web applications using React, Node.js, and Express. I focus on writing clean, modular code and follow best practices like component-driven architecture and RESTful API design. Experienced in Agile environments, I enjoy collaborating with teams, mentoring others, and contributing to open source projects. I stay updated on the latest web and cloud technologies to create seamless, accessible, and visually engaging user experiences. My goal is to deliver robust software solutions that provide real business value and exceptional user satisfaction.</p>
-                    </div>
-
-                    <div class="feature-grid">
-                        <div class="feature-card">
-                            <i class="fas fa-palette"></i>
-                            <h4>Creative Design</h4>
-                            <p>Creating unique and engaging user interfaces</p>
-                        </div>
-                        <div class="feature-card">
-                            <i class="fas fa-mobile-alt"></i>
-                            <h4>Responsive Design</h4>
-                            <p>Building websites that work on all devices</p>
-                        </div>
-                        <div class="feature-card">
-                            <i class="fas fa-code"></i>
-                            <h4>Clean Code</h4>
-                            <p>Writing efficient and maintainable code</p>
-                        </div>
-                    </div>
-
-                    <div class="cta-buttons">
-                        <a href="#contact" class="btn btn-primary">Let's Talk</a>
-                        <a href="images/Pdf/Praveen_CV_Resume.pdf" class="btn btn-secondary" download>
-                            <i class="fas fa-download"></i>
-                            Download CV
-                        </a>
-                    </div>
                 </div>
 
+                <!-- Stats below image -->
                 <div class="stats-container">
                     <div class="stat-item">
                         <div class="stat-icon">
@@ -172,7 +173,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Work Process Section -->
     <section class="work-process">
