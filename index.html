@@ -1,1275 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praveen Pramodh - Modern Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praveen Pramodh | Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a08; --bg2: #111110; --bg3: #1a1a17;
+    --text: #f0ede6; --muted: #7a7870;
+    --accent: #47c9ff; --accent2: #ff6b35;
+    --border: rgba(240,237,230,0.08);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+
+  #cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; }
+  #cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(71,201,255,0.4); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: all 0.08s ease; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem; }
+  nav::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%); z-index: -1; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.02em; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.08em; text-decoration: none; border: 1px solid rgba(71,201,255,0.3); padding: 0.5rem 1rem; border-radius: 2rem; transition: all 0.2s; }
+  .nav-cta:hover { background: rgba(71,201,255,0.08); border-color: var(--accent); }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; position: relative; overflow: hidden; }
+  .hero-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: var(--serif); font-size: clamp(10vw, 15vw, 18vw); font-weight: 900; color: transparent; -webkit-text-stroke: 1px rgba(240,237,230,0.04); white-space: nowrap; pointer-events: none; user-select: none; letter-spacing: -0.04em; }
+  .hero-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; width: 2rem; height: 1px; background: var(--muted); display: block; }
+  .hero-name { font-family: var(--serif); font-size: clamp(4rem, 9vw, 8.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 2rem; }
+  .hero-name .line1 { display: block; color: var(--text); }
+  .hero-name .line2 { display: block; color: transparent; -webkit-text-stroke: 1px rgba(240,237,230,0.35); }
+  .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+  .hero-desc { max-width: 28rem; color: var(--muted); font-size: 1rem; line-height: 1.7; }
+  .hero-desc span { color: var(--text); }
+  .hero-scroll { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--muted); font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 4rem; background: linear-gradient(to bottom, transparent, var(--muted)); animation: scrollAnim 2s ease-in-out infinite; }
+  @keyframes scrollAnim { 0%,100%{transform:scaleY(1);opacity:.5}50%{transform:scaleY(0.6);opacity:1} }
+
+  .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.2rem 0; overflow: hidden; }
+  .marquee-track { display: flex; gap: 3rem; animation: marquee 18s linear infinite; white-space: nowrap; }
+  .marquee-item { font-family: var(--serif); font-size: 0.85rem; font-style: italic; color: var(--muted); letter-spacing: 0.04em; display: flex; align-items: center; gap: 3rem; flex-shrink: 0; }
+  .marquee-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+  @keyframes marquee { from{transform:translateX(0)}to{transform:translateX(-50%)} }
+
+  section { padding: 7rem 3rem; }
+  .section-label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 3rem; display: flex; align-items: center; gap: 0.75rem; }
+  .section-label span { font-size: 0.65rem; color: var(--accent); }
+
+  .services { background: var(--bg); }
+  .services-header { font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 5rem; max-width: 32rem; }
+  .services-header em { font-style: italic; color: transparent; -webkit-text-stroke: 1px rgba(240,237,230,0.4); }
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid var(--border); }
+  .service-card { padding: 2.5rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; transition: background 0.3s; cursor: pointer; }
+  .service-card:nth-child(2n) { border-right: none; }
+  .service-card:nth-last-child(-n+2) { border-bottom: none; }
+  .service-card:hover { background: var(--bg2); }
+  .service-card:hover .service-arrow { transform: translate(4px,-4px); }
+  .service-num { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .service-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.01em; }
+  .service-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 22rem; }
+  .service-arrow { position: absolute; top: 2.5rem; right: 2.5rem; font-size: 1.2rem; color: var(--accent); transition: transform 0.2s; }
+  .service-tag { display: inline-block; margin-top: 1.5rem; font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; background: rgba(71,201,255,0.07); padding: 0.3rem 0.7rem; border-radius: 2rem; text-transform: uppercase; }
+
+  .about { background: var(--bg2); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-heading { font-family: var(--serif); font-size: clamp(2.5rem, 4.5vw, 4rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 2rem; }
+  .about-body { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 2.5rem; }
+  .about-body span { color: var(--text); }
+  .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+  .stat-num { font-family: var(--serif); font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.4; }
+  .btn { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg); background: var(--accent); padding: 0.85rem 1.8rem; border-radius: 2rem; text-decoration: none; transition: all 0.2s; }
+  .btn:hover { background: #6dd6ff; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(71,201,255,0.2); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--bg3); box-shadow: none; transform: translateY(-2px); }
+  .about-img-box { width: 100%; aspect-ratio: 4/5; background: var(--bg3); border-radius: 1rem; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .about-img-placeholder { font-family: var(--serif); font-size: 5rem; font-weight: 900; color: rgba(71,201,255,0.2); letter-spacing: -0.04em; background: linear-gradient(135deg, #0e1e2a 0%, #0a1017 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .about-float-card { position: absolute; bottom: -1.5rem; left: -2rem; background: var(--bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.2rem 1.5rem; min-width: 180px; }
+  .float-title { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .float-val { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .about-img-wrap { position: relative; }
+
+  .skills-section { background: var(--bg); }
+  .skills-heading { font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 700; margin-bottom: 3.5rem; letter-spacing: -0.02em; }
+  .skills-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+  .skill-row { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0; border-bottom: 1px solid var(--border); gap: 2rem; cursor: pointer; transition: padding-left 0.2s; }
+  .skill-row:hover { padding-left: 0.75rem; }
+  .skill-row:hover .skill-name { color: var(--accent); }
+  .skill-name { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; transition: color 0.2s; }
+  .skill-bar-wrap { flex: 1; max-width: 18rem; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
+  .skill-bar { height: 100%; background: var(--accent); border-radius: 1px; transform-origin: left; animation: barGrow 1.2s ease forwards; transform: scaleX(0); }
+  @keyframes barGrow { to{transform:scaleX(1)} }
+  .skill-pct { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); min-width: 3rem; text-align: right; }
+
+  .work-cta { background: var(--bg2); text-align: center; padding: 8rem 3rem; }
+  .work-cta-label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .work-cta-heading { font-family: var(--serif); font-size: clamp(3rem, 6vw, 6rem); font-weight: 900; line-height: 0.92; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+  .work-cta-heading .accent { color: var(--accent); }
+  .work-cta-heading .outline { color: transparent; -webkit-text-stroke: 1px rgba(240,237,230,0.25); }
+  .work-cta-sub { color: var(--muted); font-size: 1rem; margin-bottom: 3rem; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  footer { padding: 4rem 3rem 3rem; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center; }
+  .footer-logo { font-family: var(--serif); font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em; }
+  .footer-center { text-align: center; font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; }
+  .footer-links { display: flex; gap: 1.5rem; justify-content: flex-end; list-style: none; }
+  .footer-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  .noise { position: fixed; inset: 0; z-index: 9997; opacity: 0.025; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav .nav-links { display: none; }
+    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { border-right: none !important; }
+    .service-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .service-card:last-child { border-bottom: none; }
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    footer { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
+    .footer-links { justify-content: center; }
+  }
+  @media (max-width: 600px) {
+    .hero-name { font-size: clamp(3rem, 12vw, 5rem); }
+    .hero-bottom { flex-direction: column; align-items: flex-start; }
+    .about-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-content">
-            <a href="#home" class="logo">Portfolio</a>
-            <div class="nav-links" id="navLinks">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-            <button class="menu-btn" id="menuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div class="noise"></div>
 
-   <!-- Hero Section -->
-<section id="home" class="hero">
-    <!-- Background Video -->
-    <video class="hero-video" autoplay muted loop playsinline>
-        <source src="images/video/bg1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+<nav>
+  <a href="#" class="nav-logo">PP</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+  </ul>
+  <a href="mailto:praveen@example.com" class="nav-cta">Let's Talk →</a>
+</nav>
 
-    <!-- Optional gradient overlay -->
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-        <div class="hero-text">
-            <div class="hero-badge">
-                <span>Welcome to my Portfolio</span>
-            </div>
-            <h1 class="hero-title">
-                <span class="hero-greeting">Hi, I'm</span>
-                <span class="hero-name">Praveen Pramodh</span>
-            </h1>
-            <div class="hero-subtitle-wrapper">
-                <h2 class="hero-subtitle">Frontend & Full-Stack Developer</h2>
-                <p class="hero-description">Passionate Frontend & Full Stack Developer dedicated to building scalable, performant web applications. Skilled in React, Node.js, and modern technologies to create seamless user experiences and robust backend systems.</p>
-            </div>
-            
-            <div class="social-icons">
-                <a href="#" class="social-icon" aria-label="Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/praveen-pramodh-1a7021289" class="social-icon" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/praveenpramodh2002" class="social-icon" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-
-            <div class="cta-container">
-                <a href="images/Pdf/Praveen_CV_Resume.pdf" class="cta-button" download>
-                    <i class="fas fa-download"></i>
-                    <div class="download-text">
-                        <span>Download CV</span>
-                        <small>PDF Format</small>
-                    </div>
-                </a>
-            </div>
-        </div>
+<section class="hero">
+  <div class="hero-bg-text">Praveen</div>
+  <div class="hero-tag">Web Developer &amp; UI/UX Designer</div>
+  <h1 class="hero-name">
+    <span class="line1">Praveen</span>
+    <span class="line2">Pramodh</span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      <span>Freelance Web Developer</span> crafting fast, beautiful, and user-focused digital experiences — from clean code to pixel-perfect interfaces.
+    </p>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      scroll
     </div>
-
-    <div class="scroll-indicator">
-        <span>Scroll to explore</span>
-        <i class="fas fa-chevron-down"></i>
-    </div>
+  </div>
 </section>
 
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">HTML / CSS / JS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">React &amp; Vue <span class="marquee-dot"></span></div>
+    <div class="marquee-item">UI / UX Design <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Responsive Websites <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Frontend Development <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Web Performance <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Clean Code <span class="marquee-dot"></span></div>
+    <div class="marquee-item">HTML / CSS / JS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">React &amp; Vue <span class="marquee-dot"></span></div>
+    <div class="marquee-item">UI / UX Design <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Responsive Websites <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Frontend Development <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Web Performance <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Clean Code <span class="marquee-dot"></span></div>
+  </div>
+</div>
 
-   <!-- About Section -->
+<section id="services" class="services">
+  <div class="section-label"><span>02</span> What I Do</div>
+  <h2 class="services-header">Building experiences that <em>work</em> and look great</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-arrow">↗</div>
+      <h3 class="service-title">Frontend Development</h3>
+      <p class="service-desc">Writing clean, semantic HTML, CSS, and JavaScript that performs fast and looks sharp on every device.</p>
+      <span class="service-tag">HTML · CSS · JS</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-arrow">↗</div>
+      <h3 class="service-title">React &amp; Vue Apps</h3>
+      <p class="service-desc">Building dynamic, component-driven web applications with modern frameworks and scalable architecture.</p>
+      <span class="service-tag">React · Vue · State</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-arrow">↗</div>
+      <h3 class="service-title">UI / UX Design</h3>
+      <p class="service-desc">Designing intuitive, visually refined interfaces that guide users effortlessly toward their goals.</p>
+      <span class="service-tag">Figma · Wireframes</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-arrow">↗</div>
+      <h3 class="service-title">Responsive Web Design</h3>
+      <p class="service-desc">Every project looks and works perfectly across mobile, tablet, and desktop — no compromises.</p>
+      <span class="service-tag">Mobile · Tablet · Desktop</span>
+    </div>
+  </div>
+</section>
+
 <section id="about" class="about">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">About <span class="highlight">Me</span></h2>
-            <div class="section-underline"></div>
-        </div>
-
-        <div class="about-content">
-            <!-- Left Side: Text + Features -->
-            <div class="about-text">
-                <div class="about-card">
-                    <div class="card-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h3>Who I Am</h3>
-                    <p>I am a dedicated Frontend and Full Stack Developer skilled in building high-performance, scalable web applications using React, Node.js, and Express. I focus on writing clean, modular code and follow best practices like component-driven architecture and RESTful API design. Experienced in Agile environments, I enjoy collaborating with teams, mentoring others, and contributing to open source projects. I stay updated on the latest web and cloud technologies to create seamless, accessible, and visually engaging user experiences. My goal is to deliver robust software solutions that provide real business value and exceptional user satisfaction.</p>
-                </div>
-
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-palette"></i>
-                        <h4>Creative Design</h4>
-                        <p>Creating unique and engaging user interfaces</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-mobile-alt"></i>
-                        <h4>Responsive Design</h4>
-                        <p>Building websites that work on all devices</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-code"></i>
-                        <h4>Clean Code</h4>
-                        <p>Writing efficient and maintainable code</p>
-                    </div>
-                </div>
-
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">Let's Talk</a>
-                    <a href="images/Pdf/Praveen_CV_Resume.pdf" class="btn btn-secondary" download>
-                        <i class="fas fa-download"></i>
-                        Download CV
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right Side: Profile Image with Circle Design -->
-            <div class="about-image">
-                <div class="profile-container">
-                    <div class="profile-rings">
-                        <div class="profile-ring ring-1"></div>
-                        <div class="profile-ring ring-2"></div>
-                        <div class="profile-ring ring-3"></div>
-                    </div>
-                    <div class="profile-image">
-                        <img src="images/my2.jpg" alt="Praveen Pramodh">
-                    </div>
-                </div>
-
-                <!-- Stats below image -->
-                <div class="stats-container">
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>1+</h3>
-                            <p>Years Experience</p>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-project-diagram"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>12+</h3>
-                            <p>Projects Completed</p>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-smile"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>10+</h3>
-                            <p>Happy Clients</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="about-left">
+    <div class="section-label"><span>03</span> About Me</div>
+    <h2 class="about-heading">Code that's clean. Design that's sharp.</h2>
+    <p class="about-body">
+      I'm <span>Praveen Pramodh</span>, a passionate web developer who loves bringing ideas to life through the browser. I combine <span>solid frontend engineering</span> with a strong eye for design — building websites that are both technically sound and visually memorable.
+    </p>
+    <div class="about-stats">
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div>
+        <div class="stat-num">4</div>
+        <div class="stat-label">Core Skills</div>
+      </div>
     </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="mailto:praveen@example.com" class="btn">Hire Me ↗</a>
+      <a href="#skills" class="btn btn-ghost">View Skills</a>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-img-wrap">
+      <div class="about-img-box">
+        <div class="about-img-placeholder">PP</div>
+      </div>
+      <div class="about-float-card">
+        <div class="float-title">Open to Work</div>
+        <div class="float-val">2026 ✦</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-    <!-- Work Process Section -->
-    <section class="work-process">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">My Work <span class="highlight">Process</span></h2>
-                <div class="section-underline"></div>
-                <p class="section-subtitle">How I bring ideas to life</p>
-            </div>
-
-            <div class="process-timeline">
-                <div class="process-item">
-                    <div class="process-number">01</div>
-                    <div class="process-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <div class="process-content">
-                        <h3>Discovery & Research</h3>
-                        <p>Understanding your needs and goals through in-depth research and analysis</p>
-                        <ul class="process-list">
-                            <li><i class="fas fa-check"></i> User Research & Interviews</li>
-                            <li><i class="fas fa-check"></i> Market Analysis & Trends</li>
-                            <li><i class="fas fa-check"></i> Competitor Study & Benchmarking</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <div class="process-number">02</div>
-                    <div class="process-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <div class="process-content">
-                        <h3>Planning & Strategy</h3>
-                        <p>Creating a detailed roadmap for your project's success</p>
-                        <ul class="process-list">
-                            <li><i class="fas fa-check"></i> Information Architecture</li>
-                            <li><i class="fas fa-check"></i> User Flow & Journey Mapping</li>
-                            <li><i class="fas fa-check"></i> Wireframing & Prototyping</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <div class="process-number">03</div>
-                    <div class="process-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <div class="process-content">
-                        <h3>Design & Prototyping</h3>
-                        <p>Transforming ideas into beautiful, functional designs</p>
-                        <ul class="process-list">
-                            <li><i class="fas fa-check"></i> Visual Design & Branding</li>
-                            <li><i class="fas fa-check"></i> Interactive Prototypes</li>
-                            <li><i class="fas fa-check"></i> Design System & Components</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <div class="process-number">04</div>
-                    <div class="process-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="process-content">
-                        <h3>Development</h3>
-                        <p>Building robust and scalable solutions with clean code</p>
-                        <ul class="process-list">
-                            <li><i class="fas fa-check"></i> Frontend Development</li>
-                            <li><i class="fas fa-check"></i> Backend Integration</li>
-                            <li><i class="fas fa-check"></i> Performance Optimization</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <div class="process-number">05</div>
-                    <div class="process-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <div class="process-content">
-                        <h3>Launch & Support</h3>
-                        <p>Ensuring smooth deployment and ongoing maintenance</p>
-                        <ul class="process-list">
-                            <li><i class="fas fa-check"></i> Quality Assurance & Testing</li>
-                            <li><i class="fas fa-check"></i> Deployment & Launch</li>
-                            <li><i class="fas fa-check"></i> Ongoing Support & Updates</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="process-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Fast Delivery</h3>
-                    <p>Quick turnaround time without compromising quality</p>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3>Clear Communication</h3>
-                    <p>Regular updates and transparent communication</p>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Quality Assurance</h3>
-                    <p>Rigorous testing and quality checks</p>
-                </div>
-            </div>
-        </div>
-    </section>
-<!-- projects -->
-    <section id="projects" class="projects">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">My <span class="highlight">Projects</span></h2>
-            <div class="section-underline"></div>
-            <p class="section-subtitle">Showcasing my creative solutions across different domains</p>
-        </div>
-
-        <!-- Category Filters -->
-        <div class="project-filters">
-            <button class="filter-btn active" data-filter="all">All Projects</button>
-            <button class="filter-btn" data-filter="frontend">Frontend</button>
-            <button class="filter-btn" data-filter="fullstack">Full Stack</button>
-            <button class="filter-btn" data-filter="mobile">Mobile App</button>
-            <button class="filter-btn" data-filter="figma">Figma Designs</button>
-        </div>
-
-        <div class="projects-grid">
-             <!-- Project 3 - Full Stack -->
-            <div class="project-card" data-category="fullstack">
-                <div class="project-image">
-                    <img src="images/fashionstore.png" alt="Fashion Store">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="https://youtu.be/yhFqBO5W5_M?si=4yiA8_CfdnsetyEi" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://github.com/praveenpramodh2002/Fashion-Store.git" class="project-link" aria-label="GitHub Repository">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Full Stack</div>
-                </div>
-                <div class="project-content">
-                    <h3>Fashion Store</h3>
-                    <p>The Fashion Store is a Spring Boot-based e-commerce web application designed to provide users with a seamless online shopping experience for fashion products. The platform includes essential e-commerce functionalities such as user authentication, product browsing, cart management, and secure payment processing. The project follows MVC (Model-View-Controller) architecture and leverages Spring Security, JPA/Hibernate, and RESTful APIs to ensure a robust and scalable backend..</p>
-                    <div class="project-tags">
-                        <span class="tag">SpringBoot</span>
-                        <span class="tag">Tailwind</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Project 1 - Full Stack -->
-            <div class="project-card" data-category="fullstack">
-                <div class="project-image">
-                    <img src="images/Learnlab.png" alt="Skills Share Platform">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="https://youtu.be/YEzYyH12d-E?si=2RG3M1I_UgENTKBI" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://github.com/RavinduThilinaka/Learn-lab" class="project-link" aria-label="GitHub Repository">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Full Stack</div>
-                </div>
-                <div class="project-content">
-                    <h3>Skills Share Platform</h3>
-                    <p>A collaborative platform connecting individuals to learn, teach, and exchange skills through interactive sessions, fostering shared growth and expertise.</p>
-                    <div class="project-tags">
-                        <span class="tag">React</span>
-                        <span class="tag">SpringBoot</span>
-                        <span class="tag">MySQL</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Project 2 - Full Stack -->
-            <div class="project-card" data-category="fullstack">
-                <div class="project-image">
-                    <img src="images/chatbot.png" alt="Chatbot">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="https://youtu.be/0MRAqfhHQ6I?si=GdKm1CnXcin--ID_" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://github.com/praveenpramodh2002/Ai-Assistant.git" class="project-link" aria-label="GitHub Repository">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Full Stack</div>
-                </div>
-                <div class="project-content">
-                    <h3>Chatbot</h3>
-                    <p>This project is a web-based AI chatbot that leverages Google's Gemini API to provide intelligent, conversational responses. The chatbot can answer user queries, generate text, assist with research, and perform various NLP-based tasks. The website is built with a modern tech stack, ensuring a smooth and interactive user experience.</p>
-                    <div class="project-tags">
-                        <span class="tag">React.js</span>
-                        <span class="tag">Tailwind</span>
-                        
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 2 - Full Stack -->
-            <div class="project-card" data-category="fullstack">
-                <div class="project-image">
-                    <img src="images/Home.png" alt="Waste Management System">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="https://youtu.be/7VGbaOYfwV8?si=OvDMVcMnYIoXyX1c" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://github.com/senu02/EcoBin" class="project-link" aria-label="GitHub Repository">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Full Stack</div>
-                </div>
-                <div class="project-content">
-                    <h3>Waste Management System</h3>
-                    <p>A sustainable waste management solution employing technology to address inefficient collection and illegal dumping through smart routing and monitoring.</p>
-                    <div class="project-tags">
-                        <span class="tag">React.js</span>
-                        <span class="tag">Tailwind</span>
-                        <span class="tag">SpringBoot</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 3 - Full Stack -->
-            <div class="project-card" data-category="fullstack">
-                <div class="project-image">
-                    <img src="images/car service.png" alt="Car Service Management">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://github.com/praveenpramodh2002/vehicle-service" class="project-link" aria-label="GitHub Repository">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Full Stack</div>
-                </div>
-                <div class="project-content">
-                    <h3>Car Service Management</h3>
-                    <p>A comprehensive full-stack web application designed to streamline operations in vehicle service stations with appointment scheduling and inventory management.</p>
-                    <div class="project-tags">
-                        <span class="tag">MERN</span>
-                        <span class="tag">Redux</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 4 - Mobile App -->
-            <div class="project-card" data-category="mobile">
-                <div class="project-image">
-                    <img src="images/Task.png" alt="To Do Mobile App">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://github.com/praveenpramodh2002/task-mobileApp" class="project-link" aria-label="GitHub Repository">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Mobile App</div>
-                </div>
-                <div class="project-content">
-                    <h3>To Do Mobile App</h3>
-                    <p>A user-friendly To-Do mobile app with task organization, reminders, and productivity tracking featuring a clean and intuitive interface.</p>
-                    <div class="project-tags">
-                        <span class="tag">Kotlin</span>
-                        <span class="tag">Firebase</span>
-                        <span class="tag">MVVM</span>
-                    </div>
-                </div>
-            </div>
-<!-- Project 6 - Frontend -->
-            <div class="project-card" data-category="frontend">
-                <div class="project-image">
-                    <img src="images/gamehub.png" alt="Game Store">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="https://youtu.be/yd2LhMhsZyM?si=rb8EEWEVTODcEtjh" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://github.com/praveenpramodh2002/e-commerce.git" class="project-link" aria-label="GitHub Repository">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Frontend</div>
-                </div>
-                <div class="project-content">
-                    <h3>Game store</h3>
-                    <p>A modern, responsive Game Store web application built with React.js (or alternative frontend frameworks) that allows users to browse, search, and purchase video games. The UI is designed for a seamless user experience with game showcases, filters, a shopping cart, and checkout functionality.</p>
-                    <div class="project-tags">
-                        <span class="tag">React</span>
-                        <span class="tag">tailwindCSS</span>
-                        
-                    </div>
-                </div>
-            </div>
-
-                <!-- Project 5 - Figma -->
-            <div class="project-card" data-category="figma">
-                <div class="project-image">
-                    <img src="images/Sport.png" alt="Sport App">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://www.figma.com/design/OO5ilqjuYjQ22WUVhekhZM/Untitled?node-id=0-1&t=xMt3OEh4B4hak4Fz-1" class="project-link" aria-label="Design Files">
-                                <i class="fab fa-figma"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Figma Design</div>
-                </div>
-                <div class="project-content">
-                    <h3>Dating App UI/UX</h3>
-                    <p>A modern dating app design featuring intuitive swiping, profile browsing, and chat interfaces with smooth animations and user-friendly interactions.</p>
-                    <div class="project-tags">
-                        <span class="tag">Figma</span>
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Prototyping</span>
-                    </div>
-                </div>
-            </div>
-
-           
-             <!-- Project 5 - Figma -->
-            <div class="project-card" data-category="figma">
-                <div class="project-image">
-                    <img src="images/figma1.png" alt="Astro web-Site">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://www.figma.com/proto/743ySkmboO28lBhrXeB9j4/Untitled?node-id=1-3&t=ra9v801KzTz6U0e6-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1" class="project-link" aria-label="Design Files">
-                                <i class="fab fa-figma"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Figma Design</div>
-                </div>
-                <div class="project-content">
-                    <h3>Dating App UI/UX</h3>
-                    <p>A modern dating app design featuring intuitive swiping, profile browsing, and chat interfaces with smooth animations and user-friendly interactions.</p>
-                    <div class="project-tags">
-                        <span class="tag">Figma</span>
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Prototyping</span>
-                    </div>
-                </div>
-            </div>
-
-             <!-- Project 5 - Figma -->
-            <div class="project-card" data-category="figma">
-                <div class="project-image">
-                    <img src="images/Dating.png" alt="Dating App">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="" class="project-link" aria-label="Design Files">
-                                <i class="fab fa-figma"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Figma Design</div>
-                </div>
-                <div class="project-content">
-                    <h3>Dating App UI/UX</h3>
-                    <p>A modern dating app design featuring intuitive swiping, profile browsing, and chat interfaces with smooth animations and user-friendly interactions.</p>
-                    <div class="project-tags">
-                        <span class="tag">Figma</span>
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Prototyping</span>
-                    </div>
-                </div>
-            </div> 
-
-
-
-            <!-- Project 5 - Figma -->
-            <div class="project-card" data-category="figma">
-                <div class="project-image">
-                    <img src="images/Home - 1920.jpg" alt="Hotel web-Site">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://www.figma.com/design/HtWKYLc2piqg87QxpaG6XN/Untitled?node-id=0-1&t=gNcSLK9Rgj86yKZG-1" class="project-link" aria-label="Design Files">
-                                <i class="fab fa-figma"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Figma Design</div>
-                </div>
-                <div class="project-content">
-                    <h3>Web UI/UX</h3>
-                    <p>A sleek, nature-inspired resort website designed in Figma, featuring immersive visuals, elegant typography, and smooth layouts. The design highlights luxury villas, fine dining, and wellness experiences through a clean, modern interface that blends sophistication with simplicity.</p>
-                    <div class="project-tags">
-                        <span class="tag">Figma</span>
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Prototyping</span>
-                    </div>
-                </div>
-            </div>
-
-
-             <!-- Project 5 - Figma -->
-            <div class="project-card" data-category="figma">
-                <div class="project-image">
-                    <img src="images/Blog Home.png" alt=" web-Site">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://www.figma.com/design/8clodaStAPAYVR9VMoynYU/hote1?t=gNcSLK9Rgj86yKZG-1" class="project-link" aria-label="Design Files">
-                                <i class="fab fa-figma"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Figma Design</div>
-                </div>
-                <div class="project-content">
-                    <h3>Web UI/UX</h3>
-                    <p>Modern and elegant Figma design for a luxury resort website, combining minimal layouts, earthy tones, and stunning imagery. Focused on showcasing villas, experiences, and dining through a seamless, user-friendly interface.</p>
-                    <div class="project-tags">
-                        <span class="tag">Figma</span>
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Prototyping</span>
-                    </div>
-                </div>
-            </div>
-           
-             <!-- Project 5 - Figma -->
-            <div class="project-card" data-category="figma">
-                <div class="project-image">
-                    <img src="images/ui.png" alt="Game web-Site">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://www.figma.com/design/w8fCAqkegtBBtqj6Zf2Ebw/Untitled?node-id=0-1&t=HwAUCX2arUF42Vo2-1" class="project-link" aria-label="Design Files">
-                                <i class="fab fa-figma"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-category">Figma Design</div>
-                </div>
-                <div class="project-content">
-                    <h3>Web UI/UX</h3>
-                    <p>A Designed an engaging and modern game website interface using Figma, focusing on immersive visuals and smooth user flow. The design features dynamic landing pages, intuitive navigation, game previews, and community interaction sections. Emphasis was placed on UI aesthetics (dark mode, vibrant accents, and gaming-inspired typography) and UX principles to ensure accessibility, responsiveness, and an enjoyable user journey</p>
-                    <div class="project-tags">
-                        <span class="tag">Figma</span>
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Prototyping</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add more projects here with appropriate categories -->
-        </div>
-
-        <div class="view-all-container">
-            <a href="https://github.com/praveenpramodh2002?tab=repositories" class="btn btn-primary" target="_blank">
-                <span>View All Projects</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
+<section id="skills" class="skills-section">
+  <div class="section-label"><span>04</span> Skills</div>
+  <h2 class="skills-heading">Tools I build<br>with every day</h2>
+  <div class="skills-list">
+    <div class="skill-row">
+      <span class="skill-name">HTML / CSS</span>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:97%"></div></div>
+      <span class="skill-pct">97%</span>
     </div>
-    
-    <!-- Animated background elements -->
-    <div class="project-bg-elements">
-        <div class="bg-circle circle-1"></div>
-        <div class="bg-circle circle-2"></div>
-        <div class="bg-circle circle-3"></div>
+    <div class="skill-row">
+      <span class="skill-name">JavaScript</span>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:92%;animation-delay:0.1s"></div></div>
+      <span class="skill-pct">92%</span>
     </div>
+    <div class="skill-row">
+      <span class="skill-name">React</span>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%;animation-delay:0.2s"></div></div>
+      <span class="skill-pct">88%</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-name">Vue.js</span>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%;animation-delay:0.3s"></div></div>
+      <span class="skill-pct">82%</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-name">UI / UX Design</span>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%;animation-delay:0.4s"></div></div>
+      <span class="skill-pct">85%</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-name">Figma</span>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%;animation-delay:0.5s"></div></div>
+      <span class="skill-pct">80%</span>
+    </div>
+  </div>
 </section>
 
-   <!-- Skills Section -->
-<section id="skills" class="skills">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">My <span class="highlight">Skills</span></h2>
-            <div class="section-underline"></div>
-            <p class="section-subtitle">Expertise in modern web technologies and design tools</p>
-        </div>
-
-        <div class="skills-grid">
-            <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="skill-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <div class="skill-info">
-                    <h3>Frontend Development</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="90%"></div>
-                    </div>
-                    <p>HTML5, CSS3, JavaScript, React</p>
-                </div>
-            </div>
-
-            <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="skill-icon">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <div class="skill-info">
-                    <h3>UI/UX Design</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="85%"></div>
-                    </div>
-                    <p>Figma, Adobe XD, User Research</p>
-                </div>
-            </div>
-
-            <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="skill-icon">
-                    <i class="fas fa-server"></i>
-                </div>
-                <div class="skill-info">
-                    <h3>Backend Development</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="80%"></div>
-                    </div>
-                    <p>Node.js, Express, MongoDB</p>
-                </div>
-            </div>
-
-            <div class="skill-item" data-aos="fade-up" data-aos-delay="400">
-                <div class="skill-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <div class="skill-info">
-                    <h3>Mobile Development</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="75%"></div>
-                    </div>
-                    <p>React Native, Flutter</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Individual Tech Cubes Grid -->
-        <div class="tech-cubes-grid">
-            <!-- React Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="100">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fab fa-react"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>React</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- TypeScript Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="150">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fab fa-js-square"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>TypeScript</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- Tailwind CSS Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="200">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fas fa-wind"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>Tailwind</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- Node.js Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="250">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fab fa-node-js"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>Node.js</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- MongoDB Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="300">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>MongoDB</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- Figma Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="350">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fab fa-figma"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>Figma</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- Git Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="400">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fab fa-git-alt"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>Git</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- Docker Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="450">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fab fa-docker"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>Docker</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- AWS Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="500">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fab fa-aws"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>AWS</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- GraphQL Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="550">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>GraphQL</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- Next.js Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="600">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fas fa-code-branch"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>Next.js</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-
-            <!-- Python Cube -->
-            <div class="tech-cube-container" data-aos="zoom-in" data-aos-delay="650">
-                <div class="tech-cube">
-                    <div class="cube-face cube-front">
-                        <i class="fab fa-python"></i>
-                    </div>
-                    <div class="cube-face cube-back">
-                        <span>Python</span>
-                    </div>
-                    <div class="cube-face cube-right"></div>
-                    <div class="cube-face cube-left"></div>
-                    <div class="cube-face cube-top"></div>
-                    <div class="cube-face cube-bottom"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+<section class="work-cta">
+  <p class="work-cta-label">Ready to collaborate?</p>
+  <h2 class="work-cta-heading">
+    <span class="accent">Let's build</span><br>
+    <span class="outline">something</span><br>
+    <span>people love</span>
+  </h2>
+  <p class="work-cta-sub">From small startups to ambitious projects — let's make it happen.</p>
+  <div class="cta-btns">
+    <a href="mailto:praveen@example.com" class="btn">Get In Touch ↗</a>
+    <a href="https://github.com/" class="btn btn-ghost">GitHub</a>
+  </div>
 </section>
 
-    <!-- Services Section -->
-    <section class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">My <span class="highlight">Services</span></h2>
-                <div class="section-underline"></div>
-                <p class="section-subtitle">Comprehensive solutions for your digital needs</p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h3>Web Development</h3>
-                    <p>Custom websites and web applications built with modern technologies and best practices.</p>
-                    <ul class="service-features">
-                        <li>Responsive Design</li>
-                        <li>Performance Optimization</li>
-                        <li>SEO Friendly</li>
-                        <li>Modern Frameworks</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>UI/UX Design</h3>
-                    <p>User-centered design solutions that create engaging and intuitive digital experiences.</p>
-                    <ul class="service-features">
-                        <li>User Research</li>
-                        <li>Wireframing</li>
-                        <li>Prototyping</li>
-                        <li>Design Systems</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Mobile App Development</h3>
-                    <p>Native and cross-platform mobile applications for iOS and Android devices.</p>
-                    <ul class="service-features">
-                        <li>Cross-Platform</li>
-                        <li>Native Performance</li>
-                        <li>Push Notifications</li>
-                        <li>App Store Deployment</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Full-Stack Development</h3>
-                    <p>Complete end-to-end solutions with both frontend and backend development.</p>
-                    <ul class="service-features">
-                        <li>Database Design</li>
-                        <li>API Development</li>
-                        <li>Cloud Deployment</li>
-                        <li>Security Implementation</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="cta-section">
-                <div class="cta-card">
-                    <h3>Ready to Start Your <span class="highlight">Project?</span></h3>
-                    <p>Let's discuss your ideas and turn them into reality. I'm here to help you create exceptional digital experiences.</p>
-                    <a href="#contact" class="btn btn-primary">Get Started Today</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-   <!-- ===== Learning Journey Section ===== -->
-<section class="modern-bg">
-
-    <!-- Animated background blobs -->
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-    <div class="bg-blob blob-3"></div>
-
-    <div class="bg-content">
-        <div class="orbit-section">
-
-            <h2 class="orbit-title">My Learning Journey</h2>
-            <p class="orbit-subtitle">
-                Growth through learning, building, and real-world experience
-            </p>
-
-            <div class="orbit-timeline">
-
-                <div class="orbit-item left" data-aos="fade-right">
-                    <div class="orbit-dot"></div>
-                    <div class="orbit-card">
-                        <span class="orbit-year">2022</span>
-                        <h3>IT Foundations</h3>
-                        <p>
-                            Started my IT degree and built strong fundamentals
-                            in programming and logical thinking.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="orbit-item right" data-aos="fade-left">
-                    <div class="orbit-dot"></div>
-                    <div class="orbit-card">
-                        <span class="orbit-year">2023</span>
-                        <h3>UI-Focused Development</h3>
-                        <p>
-                            Designed clean, responsive interfaces with a strong
-                            focus on user experience.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="orbit-item left" data-aos="fade-right">
-                    <div class="orbit-dot"></div>
-                    <div class="orbit-card">
-                        <span class="orbit-year">2024</span>
-                        <h3>Full-Stack Projects</h3>
-                        <p>
-                            Built complete systems including dashboards,
-                            APIs, and database-driven applications.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="orbit-item right" data-aos="fade-left">
-                    <div class="orbit-dot"></div>
-                    <div class="orbit-card">
-                        <span class="orbit-year">2025</span>
-                        <h3>Industry Ready</h3>
-                        <p>
-                            Focused on scalable architecture, clean code,
-                            and collaboration on real-world problems.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
-                <div class="section-underline"></div>
-                <p class="section-subtitle">Let's discuss your project and create something amazing together. I'm always open to new opportunities and collaborations.</p>
-            </div>
-
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h3>Location</h3>
-                        <p>240/A, Walasmulla, Sri Lanka</p>
-                    </div>
-
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h3>Phone</h3>
-                        <a href="tel:+94714531805">(+94) 71 453 1805</a>
-                    </div>
-
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3>Email</h3>
-                        <a href="mailto:praveenpramodh2002@gmail.com">praveenpramodh2002@gmail.com</a>
-                    </div>
-
-                    <div class="social-connect">
-                        <h3>Connect With Me</h3>
-                        <div class="social-links">
-                            <a href="https://github.com/praveenpramodh2002" class="social-link">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/in/praveen-pramodh-1a7021289" class="social-link">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="#" class="social-link">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form-container">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" id="name" name="name" required>
-                                <label for="name">Your Name</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="email" name="email" required>
-                                <label for="email">Your Email</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" required>
-                            <label for="subject">Subject</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" rows="6" required></textarea>
-                            <label for="message">Your Message</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i>
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo-wrapper">
-                    <h3 class="footer-logo">Portfolio</h3>
-                    <div class="logo-underline"></div>
-                </div>
-                <div class="footer-contact">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <span>240/A, Walasmulla, Sri Lanka</span>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <a href="tel:+94714531805">(+94) 71 453 1805</a>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <a href="mailto:praveenpramodh2002@gmail.com">praveenpramodh2002@gmail.com</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <div class="section-header">
-                    <h3>Quick Links</h3>
-                    <div class="section-underline"></div>
-                </div>
-                <div class="footer-links">
-                    <a href="#home" class="link-hover-effect">Home</a>
-                    <a href="#about" class="link-hover-effect">About</a>
-                    <a href="#projects" class="link-hover-effect">Projects</a>
-                    <a href="#skills" class="link-hover-effect">Skills</a>
-                    <a href="#contact" class="link-hover-effect">Contact</a>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <div class="section-header">
-                    <h3>Connect With Me</h3>
-                    <div class="section-underline"></div>
-                </div>
-                <div class="footer-social">
-                    <a href="https://github.com/praveenpramodh2002" class="social-link pulse">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/praveen-pramodh-1a7021289" class="social-link pulse">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="#" class="social-link pulse">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </div>
-                <div class="newsletter">
-                    <div class="section-header">
-                        <h4>Subscribe to Newsletter</h4>
-                        <div class="section-underline"></div>
-                    </div>
-                    <form class="newsletter-form">
-                        <div class="input-group">
-                            <input type="email" placeholder="Enter your email" required>
-                            <span class="input-highlight"></span>
-                        </div>
-                        <button type="submit" class="btn-submit">
-                            <span>Subscribe</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; <span class="year">2026</span> Praveen Pramodh. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="#" class="link-hover-effect">Privacy Policy</a>
-                <a href="#" class="link-hover-effect">Terms of Service</a>
-                <a href="#" class="link-hover-effect">Cookie Policy</a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="footer-wave">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="wave-fill"></path>
-            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="wave-fill"></path>
-            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="wave-fill"></path>
-        </svg>
-    </div>
+<footer>
+  <div class="footer-logo">Praveen Pramodh</div>
+  <div class="footer-center">
+    Web Developer &amp; UI Designer © 2026<br>
+    <span style="color:#1e2e38">Available for freelance work</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="mailto:praveen@example.com">Email</a></li>
+    <li><a href="https://github.com/">GitHub</a></li>
+    <li><a href="https://linkedin.com/">LinkedIn</a></li>
+  </ul>
 </footer>
 
-    <script src="scripts/home.js"></script>
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx-5+'px';
+    cursor.style.top=my-5+'px';
+  });
+  function animRing(){
+    rx+=(mx-rx-18)*0.12; ry+=(my-ry-18)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a,button,.service-card,.skill-row').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cursor.style.transform='scale(2.5)'; ring.style.opacity='0.3'; });
+    el.addEventListener('mouseleave',()=>{ cursor.style.transform='scale(1)'; ring.style.opacity='1'; });
+  });
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.style.opacity='1'; });
+  },{threshold:0.1});
+  document.querySelectorAll('.service-card,.stat-num,.skill-row').forEach(el=>{
+    el.style.opacity='0'; el.style.transition='opacity 0.6s ease';
+    observer.observe(el);
+  });
+</script>
 </body>
 </html>
