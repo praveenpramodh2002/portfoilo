@@ -407,6 +407,91 @@ section { padding: 7rem 3rem; }
   transition: background 0.3s, color 0.3s;
 }
 
+
+
+
+/* ── Websites & Landing Pages (V3) ───────────────────────── */
+.work-section {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.work-section .section-label {
+  justify-content: center;
+}
+
+.work-showcase-title {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5.8vw, 6.2rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.work-showcase-highlight {
+  color: var(--ink);
+  display: inline-block;
+}
+
+.work-showcase-desc {
+  font-family: var(--sans);
+  font-size: var(--step-0);
+  color: var(--ink-light);
+  max-width: 34rem;
+  margin: 0 auto 5rem;
+  line-height: 1.6;
+}
+
+.work-showcase-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+  width: 100%;
+}
+
+.work-showcase-card {
+  flex: 0 0 26%;
+  max-width: 26%;
+  aspect-ratio: 16/10;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 45px rgba(14,14,12,0.06);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  display: block;
+}
+
+.work-showcase-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover effects for clean showcase card */
+@media (min-width: 901px) {
+  .work-showcase-card:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 35px 70px rgba(14,14,12,0.15);
+    border-color: rgba(14,14,12,0.25);
+  }
+  
+  .work-showcase-card:hover img {
+    transform: scale(1.05);
+  }
+}
+
+
+
 /* ── About ───────────────────────────────────────────────── */
 .about {
   background: var(--bg-dark);
@@ -512,7 +597,11 @@ section { padding: 7rem 3rem; }
 }
 
 /* About image */
-.about-img-wrap { position: relative; }
+.about-img-wrap {
+  position: relative;
+  width: 85%;
+  margin-left: auto;
+}
 
 .about-img-box {
   width: 100%;
@@ -524,6 +613,13 @@ section { padding: 7rem 3rem; }
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(245,243,238,0.06);
+}
+
+.about-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .about-img-placeholder {
@@ -802,6 +898,11 @@ footer {
     gap: 3.5rem;
   }
 
+  .about-img-wrap {
+    width: 90%;
+    margin: 0 auto;
+  }
+
   .about-float-card { left: 0; }
 
   footer {
@@ -819,4 +920,18 @@ footer {
   .about-stats { grid-template-columns: repeat(2, 1fr); }
   .about-stat:last-child { border-right: none; border-top: 1px solid rgba(245,243,238,0.1); }
   .skill-name { min-width: 9rem; }
+
+  /* Work Section Mobile Adjustments (V3) */
+  .work-showcase-desc {
+    margin-bottom: 3.5rem;
+  }
+  .work-showcase-grid {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.8rem;
+  }
+  .work-showcase-card {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
 }
