@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Praveen Pramodh | Web Developer</title>
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -221,7 +222,22 @@
   .theme-btn:hover .t-icon {
     transform: rotate(180deg);
   }
-  .nav-logo { font-family: var(--syne); font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .nav-logo:hover {
+    color: var(--accent);
+    transform: scale(1.05);
+  }
+  .logo-svg {
+    display: block;
+    width: 30px;
+    height: 30px;
+  }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
     color: var(--muted);
@@ -270,6 +286,11 @@
     padding: 0 3rem max(5rem, calc(5rem + env(safe-area-inset-bottom)));
     position: relative;
     overflow: hidden;
+    background-image: linear-gradient(to bottom, rgba(10, 10, 8, 0.55), rgba(10, 10, 8, 0.95)), url('images/Gemini_Generated_Image_esilgeesilgeesil.png');
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    transition: background-image 0.4s ease;
   }
   .hero-eyebrow {
     font-size: 11px;
@@ -416,8 +437,9 @@
   /* About */
   .about { background: var(--bg2); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
   .about-heading { font-size: clamp(2.5rem, 4.5vw, 4rem); margin-bottom: 2rem; }
-  .about-body { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 2.5rem; }
-  .about-body span { color: var(--text); }
+  .about-body { color: var(--muted); font-size: 0.95rem; line-height: 1.85; margin-bottom: 1.2rem; max-width: 38rem; }
+  .about-body:last-of-type { margin-bottom: 2.5rem; }
+  .about-body span { color: var(--text); font-weight: 500; }
   .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
   .stat-num { font-family: var(--syne); font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
   .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.4; }
@@ -431,7 +453,7 @@
   .about-float-card { position: absolute; bottom: -1.5rem; left: -2rem; background: var(--bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.2rem 1.5rem; min-width: 180px; }
   .float-title { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem; }
   .float-val { font-family: var(--syne); font-size: 1.6rem; font-weight: 700; color: var(--accent); }
-  .about-img-wrap { position: relative; width: 85%; margin-left: auto; }
+  .about-img-wrap { position: relative; width: 70%; margin-left: auto; }
 
   /* Skills */
   .skills-section { background: var(--bg); }
@@ -552,7 +574,7 @@
     .service-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
     .service-card:last-child { border-bottom: none; }
     .about { grid-template-columns: 1fr; gap: 4rem; }
-    .about-img-wrap { width: 95%; margin: 0 auto; }
+    .about-img-wrap { width: 75%; margin: 0 auto; }
     footer { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
     .footer-links { justify-content: center; }
   }
@@ -605,6 +627,9 @@
       border-color: rgba(12,12,11,0.15);
     }
   }
+  [data-theme="light"] .hero {
+    background-image: linear-gradient(to bottom, rgba(240, 237, 229, 0.55), rgba(240, 237, 229, 0.95)), url('images/Gemini_Generated_Image_esilgeesilgeesil.png');
+  }
 </style>
 </head>
 <body>
@@ -636,7 +661,11 @@
 
   <!-- ==================== NAV ==================== -->
   <nav id="nav">
-    <a href="#hero" class="nav-logo">Praveen</a>
+    <a href="#hero" class="nav-logo" aria-label="Home">
+      <svg class="logo-svg" viewBox="0 0 100 100" fill="currentColor">
+        <path d="M30 25 H55 C68 25 68 45 55 45 H42 V75 H30 V25 Z M42 35 V35 H54 C58 35 58 41 54 41 H42 V35 Z"/>
+      </svg>
+    </a>
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
@@ -743,7 +772,16 @@
       <span class="tl"><span>Design that's sharp.</span></span>
     </h2>
     <p class="about-body">
-      I'm <span>Praveen Pramodh</span>, a passionate web developer who loves bringing ideas to life through the browser. I combine <span>solid frontend engineering</span> with a strong eye for design — building websites that are both technically sound and visually memorable.
+      Hi, I’m <span>Praveen Pramodh</span> — an undergraduate at <span>SLIIT</span> and a passionate <span>web developer</span> who enjoys turning ideas into interactive, meaningful digital experiences.
+    </p>
+    <p class="about-body">
+      I combine <span>strong frontend development</span> skills with a <span>keen eye for design</span>, focusing on building websites that are not only functional and efficient but also visually engaging and user-friendly. I enjoy solving real-world problems through <span>clean code</span> and thoughtful UI/UX design.
+    </p>
+    <p class="about-body">
+      My goal is to continuously push beyond basic templates and “standard” design patterns, creating web experiences that feel <span>modern, creative, and impactful</span>. I’m especially interested in building <span>scalable web applications</span> and improving software quality through good development practices.
+    </p>
+    <p class="about-body">
+      As I continue my journey in software engineering, I’m always <span>exploring new technologies</span>, refining my skills, and working on projects that challenge me to grow as a developer.
     </p>
     <div class="about-stats">
       <div>
